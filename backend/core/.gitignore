@@ -11,6 +11,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+.idea
 
 ### Python ###
 __pycache__/
@@ -20,6 +21,7 @@ __pycache__/
 env/
 venv/
 venv
+.venv/
 build/
 develop-eggs/
 dist/
@@ -55,3 +57,4 @@ target/
 __pycache__/
 local_settings.py
 .env
+
