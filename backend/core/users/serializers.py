@@ -45,4 +45,22 @@ class UserRegistrate(serializers.Serializer):
 
 
 class UserAuth(serializers.Serializer):
-    pass
+    password = serializers.CharField()
+    username = serializers.CharField()
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'password', 'email', 'avatar')
+
+    def validate(self, attrs):
+        try:
+            user = User.objects.get(username=attrs['username'])
+        except User.DoesNotExist:
+            print('User lox')
+            raise serializers.ValidationError({'username': 'User not found'})
+
+        # Проверяем пароль
+        if not user.check_password(attrs['password']):
+            raise serializers.ValidationError({'password': 'Incorrect password'})
+
+        return attrs

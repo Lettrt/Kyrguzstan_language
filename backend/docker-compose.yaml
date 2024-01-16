@@ -13,9 +13,8 @@ services:
       - 5433:5432
   django:
     build: .
-    command: bash -c "python /code/core/manage.py makemigrations &&
-             python /code/core/manage.py migrate &&
-             python /code/core/manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python /code/core/manage.py migrate &&
+             python /code/core/manage.py runserver"
     volumes:
       - .:/code
     ports:
