@@ -25,12 +25,12 @@ User = get_user_model()
 )
 @api_view(['POST'])
 def registration(request):
-    serializer = serializers.UserRegistrate(data=request.data)
+    serializer = serializers.UserRegistration(data=request.data)
     serializer.is_valid(raise_exception=True)
     user = serializer.save()
     refresh = RefreshToken.for_user(user)
     user_data = {
-        'user': serializers.UserRegistrate(user).data,
+        'user': serializers.UserRegistration(user).data,
         'refresh': str(refresh),
         'access': str(refresh.access_token),
     }

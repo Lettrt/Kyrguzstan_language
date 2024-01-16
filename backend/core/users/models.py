@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from base.services import user_avatar
+from base.services import path_user_avatar
 
 
 class User(AbstractUser):
@@ -11,4 +11,4 @@ class User(AbstractUser):
     - avatar (file):
         аватарка пользователя
     """
-    avatar = models.ImageField(upload_to=user_avatar, null=True)
+    avatar = models.ImageField(upload_to=path_user_avatar, null=True)

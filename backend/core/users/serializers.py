@@ -6,7 +6,7 @@ from rest_framework.validators import UniqueValidator
 User = get_user_model()
 
 
-class UserRegistrate(serializers.Serializer):
+class UserRegistration(serializers.Serializer):
     """
     Сериализатор для регистрации пользователя
     """
@@ -56,7 +56,6 @@ class UserAuth(serializers.Serializer):
         try:
             user = User.objects.get(username=attrs['username'])
         except User.DoesNotExist:
-            print('User lox')
             raise serializers.ValidationError({'username': 'User not found'})
 
         # Проверяем пароль
