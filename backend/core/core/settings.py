@@ -24,6 +24,8 @@ INSTALLED_APPS = [
     'drf_yasg',
     'corsheaders',
 
+    # Apps
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -136,3 +138,5 @@ LOGGING = {
         },
     },
 }
+
+AUTH_USER_MODEL = 'users.user'

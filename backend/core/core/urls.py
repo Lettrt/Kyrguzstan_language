@@ -24,4 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Welcome
     path('', welcome_view, name='welcome'),
+    # User
+    path('api/user/', include('users.urls')),
 ]
