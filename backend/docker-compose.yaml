@@ -1,7 +1,7 @@
 version: '2.23.0'
 
 services:
-  dm_db:
+  db:
     image: postgres:15.4
     environment:
       POSTGRES_PASSWORD: postgres
@@ -10,18 +10,18 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - 5433:5432
   django:
     build: .
-    command: bash -c "python /code/manage.py makemigrations &&
-             python /code/manage.py migrate &&
-             python /code/manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python /code/core/manage.py makemigrations &&
+             python /code/core/manage.py migrate &&
+             python /code/core/manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
     ports:
       - 8000:8000
     depends_on:
-      - dm_db
+      - db
 
 volumes:
   postgres_data:
