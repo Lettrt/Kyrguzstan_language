@@ -6,10 +6,11 @@ from rest_framework.validators import UniqueValidator
 User = get_user_model()
 
 
-class UserRegistrate(serializers.Serializer):
+class UserRegistration(serializers.Serializer):
     """
     Сериализатор для регистрации пользователя
     """
+    id = serializers.IntegerField(allow_null=True, required=False)
     username = serializers.CharField(
         allow_null=False,
         required=False,
@@ -22,6 +23,7 @@ class UserRegistrate(serializers.Serializer):
     )
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
+    avatar = serializers.ImageField(allow_null=True, required=False)
 
     class Meta:
         model = User
@@ -45,4 +47,32 @@ class UserRegistrate(serializers.Serializer):
 
 
 class UserAuth(serializers.Serializer):
-    pass
+    """
+    Сериализатор для аутентификации пользователя
+    """
+    id = serializers.IntegerField(allow_null=True, required=False)
+    username = serializers.CharField()
+    password = serializers.CharField(write_only=True)
+    email = serializers.EmailField(allow_null=True, required=False)
+    avatar = serializers.ImageField(allow_null=True, required=False)
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'password', 'email', 'avatar')
+
+    def validate(self, attrs):
+        try:
+            user = User.objects.get(username=attrs['username'])
+        except User.DoesNotExist:
+            raise serializers.ValidationError({'username': 'User not found'})
+
+        # Проверяем пароль
+        if not user.check_password(attrs['password']):
+            raise serializers.ValidationError({'password': 'Incorrect password'})
+
+        # Добавляем дополнительные параметры в attrs
+        attrs['id'] = user.id
+        attrs['email'] = user.email
+        attrs['avatar'] = user.avatar if user.avatar else None
+
+        return attrs
