@@ -8,6 +8,7 @@ from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, Ou
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from . import serializers
+from base.services import delete_of_file
 
 User = get_user_model()
 
@@ -90,6 +91,13 @@ class UserRULD(mixins.RetrieveModelMixin,
         Переписана документация Swagger
         """
         return super().update(request, *args, **kwargs)
+
+    def perform_destroy(self, instance):
+        """
+        Удаление user directory
+        """
+        delete_of_file(instance.avatar.path)
+        instance.delete()
 
 
 @swagger_auto_schema(

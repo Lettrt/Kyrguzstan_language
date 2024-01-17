@@ -108,5 +108,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         # Удаление старого файла
-        delete_of_file(instance.avatar.path)
+        try:
+            delete_of_file(instance.avatar.path)
+        except ValueError:
+            pass
         return super().update(instance, validated_data)
