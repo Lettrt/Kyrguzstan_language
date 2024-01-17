@@ -76,3 +76,16 @@ class UserAuth(serializers.Serializer):
         attrs['avatar'] = user.avatar if user.avatar else None
 
         return attrs
+
+
+class UserSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для CRUD пользователя
+    """
+    username = serializers.CharField(required=False)
+    email = serializers.EmailField(required=False)
+    avatar = serializers.ImageField(required=False, allow_null=True)
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'avatar')
