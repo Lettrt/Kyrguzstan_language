@@ -8,7 +8,7 @@ def path_user_avatar(instance, file: str) -> str:
 
 
 def delete_of_file(path_file) -> None:
-    """ Удаление старого файла
+    """ Удаление файла
     """
     if os.path.exists(path_file):
         os.remove(path_file)
