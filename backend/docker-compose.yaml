@@ -14,7 +14,7 @@ services:
   django:
     build: .
     command: bash -c "python /code/core/manage.py migrate &&
-             python /code/core/manage.py runserver"
+             python /code/core/manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
     ports:
