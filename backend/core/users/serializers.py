@@ -3,6 +3,8 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
+from base.services import delete_of_file
+
 User = get_user_model()
 
 
@@ -103,3 +105,8 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'avatar')
+
+    def update(self, instance, validated_data):
+        # Удаление старого файла
+        delete_of_file(instance.avatar.path)
+        return super().update(instance, validated_data)
