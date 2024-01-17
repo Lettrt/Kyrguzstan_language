@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import include, path
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+
 from .views import welcome_view
 
 schema_view = get_schema_view(
@@ -24,4 +26,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Welcome
     path('', welcome_view, name='welcome'),
+    # User
+    path('api/user/', include('users.urls')),
+    # Token
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pari'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
