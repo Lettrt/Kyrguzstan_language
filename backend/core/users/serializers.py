@@ -21,7 +21,11 @@ class UserRegistration(serializers.Serializer):
         required=False,
         validators=[UniqueValidator(queryset=User.objects.all())]
     )
-    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    password = serializers.CharField(
+        write_only=True,
+        required=True,
+        validators=[validate_password]
+    )
     password2 = serializers.CharField(write_only=True, required=True)
     avatar = serializers.ImageField(allow_null=True, required=False)
 
@@ -82,9 +86,19 @@ class UserSerializer(serializers.ModelSerializer):
     """
     Сериализатор для CRUD пользователя
     """
-    username = serializers.CharField(required=False)
-    email = serializers.EmailField(required=False)
-    avatar = serializers.ImageField(required=False, allow_null=True)
+    username = serializers.CharField(
+        required=False,
+        validators=[
+            UniqueValidator(queryset=User.objects.all())
+        ]
+    )
+    email = serializers.EmailField(
+        required=False,
+        validators=[
+            UniqueValidator(queryset=User.objects.all())
+        ]
+    )
+    avatar = serializers.ImageField(required=False)
 
     class Meta:
         model = User

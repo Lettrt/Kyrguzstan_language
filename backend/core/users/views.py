@@ -23,6 +23,74 @@ class UserRULD(mixins.RetrieveModelMixin,
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
 
+    @swagger_auto_schema(
+        operation_description='Для изменения данных пользователя',
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                "username": openapi.Schema(type=openapi.TYPE_STRING),
+                "email": openapi.Schema(type=openapi.FORMAT_EMAIL),
+                "avatar": openapi.Schema(type=openapi.TYPE_FILE)
+            }
+        ),
+        responses={
+            status.HTTP_200_OK: openapi.Response(
+                description='',
+                schema=openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'id': openapi.Schema(type=openapi.TYPE_INTEGER),
+                        'username': openapi.Schema(type=openapi.TYPE_STRING),
+                        'email': openapi.Schema(type=openapi.FORMAT_EMAIL),
+                        'avatar': openapi.Schema(type=openapi.TYPE_FILE)
+                    }
+                ),
+            ),
+            status.HTTP_400_BAD_REQUEST: openapi.Response(
+                description='Incorrect parameter entry'
+            )
+        },
+    )
+    def partial_update(self, request, *args, **kwargs):
+        """
+        Переписана документация Swagger
+        """
+        return super().partial_update(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_description='Для изменения данных пользователя',
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                "username": openapi.Schema(type=openapi.TYPE_STRING),
+                "email": openapi.Schema(type=openapi.FORMAT_EMAIL),
+                "avatar": openapi.Schema(type=openapi.TYPE_FILE)
+            }
+        ),
+        responses={
+            status.HTTP_200_OK: openapi.Response(
+                description='',
+                schema=openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'id': openapi.Schema(type=openapi.TYPE_INTEGER),
+                        'username': openapi.Schema(type=openapi.TYPE_STRING),
+                        'email': openapi.Schema(type=openapi.FORMAT_EMAIL),
+                        'avatar': openapi.Schema(type=openapi.TYPE_FILE)
+                    }
+                ),
+            ),
+            status.HTTP_400_BAD_REQUEST: openapi.Response(
+                description='Incorrect parameter entry'
+            )
+        },
+    )
+    def update(self, request, *args, **kwargs):
+        """
+        Переписана документация Swagger
+        """
+        return super().update(request, *args, **kwargs)
+
 
 @swagger_auto_schema(
     method='post',
@@ -56,6 +124,9 @@ class UserRULD(mixins.RetrieveModelMixin,
                 }
             )
         ),
+        status.HTTP_400_BAD_REQUEST: openapi.Response(
+            description='Incorrect parameter entry'
+        )
     }
 )
 @api_view(['POST'])
@@ -103,6 +174,9 @@ def registration(request):
                 }
             )
         ),
+        status.HTTP_400_BAD_REQUEST: openapi.Response(
+            description='User not found and password incorrect'
+        )
     }
 )
 @api_view(['POST'])
