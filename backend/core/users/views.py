@@ -35,7 +35,28 @@ class UserRULD(mixins.RetrieveModelMixin,
             'password2': openapi.Schema(type=openapi.FORMAT_PASSWORD),
             "email": openapi.Schema(type=openapi.FORMAT_EMAIL),
         }
-    )
+    ),
+    responses={
+        status.HTTP_201_CREATED: openapi.Response(
+            description='User data and refresh, access',
+            schema=openapi.Schema(
+                type=openapi.TYPE_OBJECT,
+                properties={
+                    'user': openapi.Schema(
+                        type=openapi.TYPE_OBJECT,
+                        properties={
+                            'id': openapi.Schema(type=openapi.TYPE_INTEGER),
+                            'username': openapi.Schema(type=openapi.TYPE_STRING),
+                            'email': openapi.Schema(type=openapi.FORMAT_EMAIL),
+                            'avatar': openapi.Schema(type=openapi.FORMAT_URI)
+                        }
+                    ),
+                    'refresh': openapi.Schema(type=openapi.TYPE_STRING),
+                    'access': openapi.Schema(type=openapi.TYPE_STRING),
+                }
+            )
+        ),
+    }
 )
 @api_view(['POST'])
 def registration(request):
@@ -61,7 +82,28 @@ def registration(request):
             "username": openapi.Schema(type=openapi.TYPE_STRING),
             'password': openapi.Schema(type=openapi.FORMAT_PASSWORD),
         }
-    )
+    ),
+    responses={
+        status.HTTP_201_CREATED: openapi.Response(
+            description='User data and refresh, access',
+            schema=openapi.Schema(
+                type=openapi.TYPE_OBJECT,
+                properties={
+                    'user': openapi.Schema(
+                        type=openapi.TYPE_OBJECT,
+                        properties={
+                            'id': openapi.Schema(type=openapi.TYPE_INTEGER),
+                            'username': openapi.Schema(type=openapi.TYPE_STRING),
+                            'email': openapi.Schema(type=openapi.FORMAT_EMAIL),
+                            'avatar': openapi.Schema(type=openapi.FORMAT_URI)
+                        }
+                    ),
+                    'refresh': openapi.Schema(type=openapi.TYPE_STRING),
+                    'access': openapi.Schema(type=openapi.TYPE_STRING),
+                }
+            )
+        ),
+    }
 )
 @api_view(['POST'])
 def authentication(request):
