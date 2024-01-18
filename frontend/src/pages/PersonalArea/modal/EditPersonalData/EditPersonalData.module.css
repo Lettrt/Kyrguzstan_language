@@ -1,0 +1,38 @@
+.modal {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.modal_container {
+    width: 40%;
+    height: 70%;
+    /* background: yellow; */
+    border-radius: 20px;
+    overflow: auto;
+    position: relative;
+    padding: 20px;
+    cursor: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    background-color: aliceblue;
+}
+
+.close {
+    font-size: 40px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: rgb(3, 28, 49);
+}
