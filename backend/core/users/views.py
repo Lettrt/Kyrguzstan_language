@@ -8,6 +8,7 @@ from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, Ou
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from . import serializers
+from . import paginations
 from base.services import delete_of_file
 
 User = get_user_model()
@@ -23,6 +24,7 @@ class UserRULD(mixins.RetrieveModelMixin,
     """
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
+    pagination_class = paginations.UserResultsSetPagination
 
     @swagger_auto_schema(
         operation_description='Для изменения данных пользователя',
