@@ -3,6 +3,8 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
+from base.services import delete_of_file
+
 User = get_user_model()
 
 
@@ -21,7 +23,11 @@ class UserRegistration(serializers.Serializer):
         required=False,
         validators=[UniqueValidator(queryset=User.objects.all())]
     )
-    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    password = serializers.CharField(
+        write_only=True,
+        required=True,
+        validators=[validate_password]
+    )
     password2 = serializers.CharField(write_only=True, required=True)
     avatar = serializers.ImageField(allow_null=True, required=False)
 
@@ -76,3 +82,34 @@ class UserAuth(serializers.Serializer):
         attrs['avatar'] = user.avatar if user.avatar else None
 
         return attrs
+
+
+class UserSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для CRUD пользователя
+    """
+    username = serializers.CharField(
+        required=False,
+        validators=[
+            UniqueValidator(queryset=User.objects.all())
+        ]
+    )
+    email = serializers.EmailField(
+        required=False,
+        validators=[
+            UniqueValidator(queryset=User.objects.all())
+        ]
+    )
+    avatar = serializers.ImageField(required=False)
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'avatar')
+
+    def update(self, instance, validated_data):
+        # Удаление старого файла
+        try:
+            delete_of_file(instance.avatar.path)
+        except ValueError:
+            pass
+        return super().update(instance, validated_data)

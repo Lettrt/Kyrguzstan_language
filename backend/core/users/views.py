@@ -1,15 +1,103 @@
 from django.contrib.auth import get_user_model
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import permissions, status
+from rest_framework import permissions, status, mixins, viewsets
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, OutstandingToken
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from . import serializers
+from base.services import delete_of_file
 
 User = get_user_model()
+
+
+class UserRULD(mixins.RetrieveModelMixin,
+               mixins.UpdateModelMixin,
+               mixins.ListModelMixin,
+               mixins.DestroyModelMixin,
+               viewsets.GenericViewSet):
+    """
+    Конечная точка API, которая позволяет извлекать, обновлять, перечислять и удалять пользователей
+    """
+    queryset = User.objects.all()
+    serializer_class = serializers.UserSerializer
+
+    @swagger_auto_schema(
+        operation_description='Для изменения данных пользователя',
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                "username": openapi.Schema(type=openapi.TYPE_STRING),
+                "email": openapi.Schema(type=openapi.FORMAT_EMAIL),
+                "avatar": openapi.Schema(type=openapi.TYPE_FILE)
+            }
+        ),
+        responses={
+            status.HTTP_200_OK: openapi.Response(
+                description='',
+                schema=openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'id': openapi.Schema(type=openapi.TYPE_INTEGER),
+                        'username': openapi.Schema(type=openapi.TYPE_STRING),
+                        'email': openapi.Schema(type=openapi.FORMAT_EMAIL),
+                        'avatar': openapi.Schema(type=openapi.TYPE_FILE)
+                    }
+                ),
+            ),
+            status.HTTP_400_BAD_REQUEST: openapi.Response(
+                description='Incorrect parameter entry'
+            )
+        },
+    )
+    def partial_update(self, request, *args, **kwargs):
+        """
+        Переписана документация Swagger
+        """
+        return super().partial_update(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_description='Для изменения данных пользователя',
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                "username": openapi.Schema(type=openapi.TYPE_STRING),
+                "email": openapi.Schema(type=openapi.FORMAT_EMAIL),
+                "avatar": openapi.Schema(type=openapi.TYPE_FILE)
+            }
+        ),
+        responses={
+            status.HTTP_200_OK: openapi.Response(
+                description='',
+                schema=openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'id': openapi.Schema(type=openapi.TYPE_INTEGER),
+                        'username': openapi.Schema(type=openapi.TYPE_STRING),
+                        'email': openapi.Schema(type=openapi.FORMAT_EMAIL),
+                        'avatar': openapi.Schema(type=openapi.TYPE_FILE)
+                    }
+                ),
+            ),
+            status.HTTP_400_BAD_REQUEST: openapi.Response(
+                description='Incorrect parameter entry'
+            )
+        },
+    )
+    def update(self, request, *args, **kwargs):
+        """
+        Переписана документация Swagger
+        """
+        return super().update(request, *args, **kwargs)
+
+    def perform_destroy(self, instance):
+        """
+        Удаление user directory
+        """
+        delete_of_file(instance.avatar.path)
+        instance.delete()
 
 
 @swagger_auto_schema(
@@ -23,7 +111,31 @@ User = get_user_model()
             'password2': openapi.Schema(type=openapi.FORMAT_PASSWORD),
             "email": openapi.Schema(type=openapi.FORMAT_EMAIL),
         }
-    )
+    ),
+    responses={
+        status.HTTP_201_CREATED: openapi.Response(
+            description='User data and refresh, access',
+            schema=openapi.Schema(
+                type=openapi.TYPE_OBJECT,
+                properties={
+                    'user': openapi.Schema(
+                        type=openapi.TYPE_OBJECT,
+                        properties={
+                            'id': openapi.Schema(type=openapi.TYPE_INTEGER),
+                            'username': openapi.Schema(type=openapi.TYPE_STRING),
+                            'email': openapi.Schema(type=openapi.FORMAT_EMAIL),
+                            'avatar': openapi.Schema(type=openapi.FORMAT_URI)
+                        }
+                    ),
+                    'refresh': openapi.Schema(type=openapi.TYPE_STRING),
+                    'access': openapi.Schema(type=openapi.TYPE_STRING),
+                }
+            )
+        ),
+        status.HTTP_400_BAD_REQUEST: openapi.Response(
+            description='Incorrect parameter entry'
+        )
+    }
 )
 @api_view(['POST'])
 def registration(request):
@@ -49,10 +161,34 @@ def registration(request):
             "username": openapi.Schema(type=openapi.TYPE_STRING),
             'password': openapi.Schema(type=openapi.FORMAT_PASSWORD),
         }
-    )
+    ),
+    responses={
+        status.HTTP_201_CREATED: openapi.Response(
+            description='User data and refresh, access',
+            schema=openapi.Schema(
+                type=openapi.TYPE_OBJECT,
+                properties={
+                    'user': openapi.Schema(
+                        type=openapi.TYPE_OBJECT,
+                        properties={
+                            'id': openapi.Schema(type=openapi.TYPE_INTEGER),
+                            'username': openapi.Schema(type=openapi.TYPE_STRING),
+                            'email': openapi.Schema(type=openapi.FORMAT_EMAIL),
+                            'avatar': openapi.Schema(type=openapi.FORMAT_URI)
+                        }
+                    ),
+                    'refresh': openapi.Schema(type=openapi.TYPE_STRING),
+                    'access': openapi.Schema(type=openapi.TYPE_STRING),
+                }
+            )
+        ),
+        status.HTTP_400_BAD_REQUEST: openapi.Response(
+            description='User not found and password incorrect'
+        )
+    }
 )
 @api_view(['POST'])
-def user_auth(request):
+def authentication(request):
     serializer = serializers.UserAuth(data=request.data)
     serializer.is_valid(raise_exception=True)
 
@@ -92,7 +228,7 @@ def user_auth(request):
 )
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated])
-def user_exit(request):
+def logout_user(request):
     try:
         token = OutstandingToken.objects.filter(user_id=request.data.get('refresh'))
         BlacklistedToken.objects.get_or_create(token=token)
