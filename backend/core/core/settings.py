@@ -26,6 +26,7 @@ INSTALLED_APPS = [
 
     # Apps
     'users',
+    'webapp',
 ]
 
 CORS_ALLOWED_ORIGINS = [
