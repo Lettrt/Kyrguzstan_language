@@ -11,7 +11,10 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-.idea
+/.idea
+
+
+
 
 ### Python ###
 __pycache__/
@@ -57,5 +60,5 @@ target/
 __pycache__/
 local_settings.py
 .env
+media/*
 
-/backend/core/.idea/
