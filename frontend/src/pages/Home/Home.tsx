@@ -1,3 +1,4 @@
+
 import React, { FC } from 'react';
 import Advertising from '../../components/Swiper/Advertising/Advertising';
 
@@ -6,8 +7,11 @@ const Home: FC = () => {
         <div>
             <Advertising />
 
-        </div>
-    );
-};
+import React, { FC } from 'react'
 
-export default Home;
+const Home: FC = () => {
+	return <div>bl abaalbla</div>
+}
+
+
+export default Home
