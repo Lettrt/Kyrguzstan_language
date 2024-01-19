@@ -19,7 +19,7 @@ const PersonalArea: FC = () => {
     const [isvisible, setIsvisible] = useState(false)
     const [password, setPassword] = useState(false)
     const dispatch = useAppDispatch()
-    const { error, loading } = useAppSelector(state => state.user)
+    const { loading } = useAppSelector(state => state.user)
     const { id, user } = useAppSelector(state => state.user)
     // console.log(user);
 
