@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
+from base.services import path_theme_image
+
 User = get_user_model()
 
 
@@ -19,15 +21,15 @@ class Words(models.Model):
     kg_words = models.CharField(
         max_length=50,
         verbose_name='Кыргызские слова',
-        )
+    )
     ru_words = models.CharField(
         max_length=50,
         verbose_name='Русские слова',
-        )
+    )
     eng_words = models.CharField(
         max_length=50,
         verbose_name='Английские слова',
-        )
+    )
 
     def __str__(self) -> str:
         return self.kg_words
@@ -53,19 +55,19 @@ class ThemeOFWords(models.Model):
     title = models.CharField(
         max_length=50, 
         verbose_name='Заголовок',
-        )
+    )
     description = models.TextField( 
         verbose_name='Описание',
-        )
+    )
     image = models.ImageField(
-        upload_to='',
+        upload_to=path_theme_image,
         verbose_name='Фото темы',
-        )
+    )
     words = models.ForeignKey(
         Words,
         on_delete=models.CASCADE,
         related_name='theme_of_words',
-        ) 
+    )
 
     def __str__(self) -> str:
         return self.title
@@ -73,13 +75,3 @@ class ThemeOFWords(models.Model):
     class Meta:
         verbose_name = "Темы слов"
         verbose_name_plural = "Темы слов"
-    
-
-
-
-
-
-
-
-
-

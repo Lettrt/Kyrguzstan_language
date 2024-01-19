@@ -31,6 +31,8 @@ urlpatterns = [
     path('', welcome_view, name='welcome'),
     # User
     path('api/user/', include('users.urls')),
+    # Webapp
+    path('api/webapp/', include('webapp.urls')),
     # Token
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pari'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

@@ -12,3 +12,9 @@ def delete_of_file(path_file) -> None:
     """
     if os.path.exists(path_file):
         os.remove(path_file)
+
+
+def path_theme_image(instance, file: str) -> str:
+    """ Путь к изображению темы OF Words
+    """
+    return f"theme/{file}"
