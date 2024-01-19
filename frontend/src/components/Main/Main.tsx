@@ -11,6 +11,8 @@ import { getLSToken } from '../../LS'
 import { setToken } from '../../store/slice/userSlice'
 import DetailCard from '../../pages/DetailCard/DetailCard'
 import AllCard from '../../pages/AllCard/AllCard'
+import Category from '../../pages/Category/Category'
+import AllCategory from '../../pages/AllCategory/AllCategory'
 
 const Main: FC = () => {
     const { token } = useAppSelector(state => state.user)
@@ -31,6 +33,8 @@ const Main: FC = () => {
                 <Route path='/personal-area' element={<PersonalArea />} />
                 <Route path='/detailcard/:id' element={<DetailCard />} />
                 <Route path='/allcard/:name/:id' element={<AllCard />} />
+                <Route path='/category' element={<Category />} />
+                <Route path='/allcategory' element={<AllCategory />} />
                 <Route path='/*' element={<NotFount />} />
             </Routes>
         </main>
@@ -38,8 +42,12 @@ const Main: FC = () => {
         <main>
             <Routes>
                 <Route path='/' element={<PreviewsHome />} />
+                <Route path='/sign-in' element={<Login />} />
+                <Route path='/sign-up' element={<Registration />} />
                 <Route path='/detailcard/:id' element={<DetailCard />} />
                 <Route path='/allcard/:name/:id' element={<AllCard />} />
+                <Route path='/category' element={<Category />} />
+                <Route path='/allcategory' element={<AllCategory />} />
                 <Route path='/*' element={<NotFount />} />
             </Routes>
         </main>
