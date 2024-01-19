@@ -1,7 +1,13 @@
-import React, { FC } from 'react'
+
+import React, { FC } from 'react';
+import Advertising from '../../components/Swiper/Advertising/Advertising';
 
 const Home: FC = () => {
-	return <div>bl abaalbla</div>
-}
+    return (
+        <div>
+            <Advertising />
+        </div>
+    );
+};
 
-export default Home
+export default Home;
