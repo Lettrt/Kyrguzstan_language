@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { UserData } from '../store/moduls'
+import { UserData, Logout } from '../store/moduls'
 
 const instance = axios.create({
 	baseURL: 'http://5.35.95.84:8000/api/',
@@ -15,4 +15,10 @@ export const authApi = {
 	login(userData: UserData) {
 		return instance.post('token/', userData)
 	},
+      getUserData(id: number) {
+        return instanse.get(`user/users/${id}/`)
+    },
+    putChangeLogin(logout: Logout) {
+        return instanse.put(`user/users/${logout.id}/`, logout.login)
+    }
 }

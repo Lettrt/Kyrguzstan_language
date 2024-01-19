@@ -1,0 +1,26 @@
+version: '2.23.0'
+
+services:
+  db:
+    image: postgres:15.4
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+  django:
+    build: .
+    command: bash -c "python /code/core/manage.py migrate &&
+             python /code/core/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
