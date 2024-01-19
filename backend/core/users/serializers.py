@@ -60,11 +60,6 @@ class UserAuth(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
     email = serializers.EmailField(allow_null=True, required=False)
-    avatar = serializers.ImageField(allow_null=True, required=False)
-
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'password', 'email', 'avatar')
 
     def validate(self, attrs):
         try:
@@ -79,7 +74,7 @@ class UserAuth(serializers.Serializer):
         # Добавляем дополнительные параметры в attrs
         attrs['id'] = user.id
         attrs['email'] = user.email
-        attrs['avatar'] = user.avatar if user.avatar else None
+        attrs['avatar'] = "media/" + str(user.avatar) if user.avatar else None
 
         return attrs
 

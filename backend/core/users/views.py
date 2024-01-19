@@ -22,7 +22,8 @@ class UserRULD(mixins.RetrieveModelMixin,
     """
     Конечная точка API, которая позволяет извлекать, обновлять, перечислять и удалять пользователей
     """
-    queryset = User.objects.all()
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    queryset = User.objects.all().order_by('id')
     serializer_class = serializers.UserSerializer
     pagination_class = paginations.UserResultsSetPagination
 
