@@ -1,3 +1,19 @@
+
+
+
+
+
+
+import React, { FC } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Home from '../../pages/Home/Home';
+import Login from '../../pages/authScens/Login/Login';
+import Registration from '../../pages/authScens/Registration/Registration';
+import Advertising from '../Swiper/Advertising/Advertising';
+import s from './Main.module.css'
+
+
+
 import React, { FC, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Home from '../../pages/Home/Home'
@@ -13,6 +29,13 @@ import DetailCard from '../../pages/DetailCard/DetailCard'
 import AllCard from '../../pages/AllCard/AllCard'
 import Category from '../../pages/Category/Category'
 import AllCategory from '../../pages/AllCategory/AllCategory'
+
+
+
+
+
+
+
 
 const Main: FC = () => {
     const { token } = useAppSelector(state => state.user)
@@ -50,6 +73,7 @@ const Main: FC = () => {
                 <Route path='/allcategory' element={<AllCategory />} />
                 <Route path='/*' element={<NotFount />} />
             </Routes>
+
         </main>
 
     )

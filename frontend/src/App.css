@@ -1,6 +1,19 @@
+
 #app {
     height: 100%;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 html,
 body {
@@ -17,6 +30,32 @@ body {
     padding: 0;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 1 auto;
+    margin: 100px 0 100px 0;
+=======
 .swiper {
     width: 100%;
     height: 100%;
@@ -43,4 +82,5 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+
 }

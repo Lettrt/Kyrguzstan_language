@@ -8,6 +8,27 @@ import { useAppSelector } from './store/hooks/hooks'
 import PreviewsHeader from './components/PreviewsHeader/PreviewsHeader'
 
 const App: FC = () => {
+
+  return (
+    <div className='wrapper'>
+      <Header />
+      <Main />
+      <Footer />
+    </div>
+  );
+};
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 	const { token } = useAppSelector(state => state.user)
 	return (
 		<div>
@@ -19,5 +40,6 @@ const App: FC = () => {
 		</div>
 	)
 }
+
 
 export default App
