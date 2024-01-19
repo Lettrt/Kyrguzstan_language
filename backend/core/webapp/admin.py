@@ -10,7 +10,6 @@ class ThemeOFWordsAdmin(admin.ModelAdmin):
     list_filter = ('title',)
     list_display = ('title','short_description',)   
 
-
     def short_description(self, obj):
         return obj.description[:20] 
 
