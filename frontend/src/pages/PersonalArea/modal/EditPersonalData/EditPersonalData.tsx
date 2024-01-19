@@ -1,11 +1,40 @@
-import React, { FC, ReactNode, useEffect } from 'react';
+import React, { FC, FormEventHandler, useEffect, useState } from 'react';
 import s from './EditPersonalData.module.css'
+import { Login, Logout } from '../../../../store/moduls';
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks/hooks';
+import { fetchByChangeLogin } from '../../../../store/slice/userSlice';
+
 
 interface FormProps {
     setIsvisible: (e: boolean) => void
+    isvisible: boolean
 }
 
-const EditPersonalData: FC<FormProps> = ({ setIsvisible }) => {
+const EditPersonalData: FC<FormProps> = ({ setIsvisible, isvisible }) => {
+    const dispatch = useAppDispatch()
+    const { id } = useAppSelector(state => state.user)
+    const [login, setLogin] = useState<Login>({
+        email: '',
+        username: '',
+    })
+
+    const getLogin = (key: string, value: string) => {
+        setLogin({ ...login, [key]: value })
+    }
+
+    const logout: Logout = {
+        id,
+        login,
+    }
+
+    const handleChangeLogin: FormEventHandler<HTMLFormElement> = (e) => {
+        e.preventDefault()
+        if (id) {
+            dispatch(fetchByChangeLogin(logout))
+        }
+        setIsvisible(false)
+    }
+
     const hideModal = () => {
         setIsvisible(false)
     }
@@ -17,25 +46,29 @@ const EditPersonalData: FC<FormProps> = ({ setIsvisible }) => {
             e.code === 'Escape' && hideModal()
         })
         // При рождении навесит другое событие на кнопку назад у браузера
-        // if (isvisible) {
-        //     window.history.pushState(null, '', window.location.href)
-        //     window.onpopstate = () => setIsvisible(false);
-        // }
+        if (isvisible) {
+            window.history.pushState(null, '', window.location.href)
+            window.onpopstate = () => setIsvisible(false);
+        }
         return () => {
             // При закрытии  модального окна вернуть скролл
             document.body.style.overflow = 'auto'
             // При закрытии убрать действия с кнопки ESC
             document.removeEventListener('keydown', () => { })
             // При закрытии вернуть действие по умолчанию на кнопку назад в браузере
-            // if (!isvisible) window.history.back();
-            // window.onpopstate = () => { };
+            if (!isvisible) window.history.back();
+            window.onpopstate = () => { };
         }
     }, [])
     return (
         <div onClick={hideModal} className={s.modal}>
-            <div className={s.modal_container}>
+            <div onClick={(e) => e.stopPropagation()} className={s.modal_container}>
                 <span onClick={() => setIsvisible(false)} className={s.close}>&#10006;</span>
-                <h2>Edit</h2>
+                <form className={s.change_login} onSubmit={handleChangeLogin}>
+                    <input value={login.username} onChange={(e) => getLogin('username', e.target.value)} type="text" />
+                    <input value={login.email} onChange={(e) => getLogin('email', e.target.value)} type="email" />
+                    <button>Change</button>
+                </form>
             </div>
         </div>
     );

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import s from './PersonalArea.module.css'
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -10,23 +10,38 @@ import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import EditPersonalData from './modal/EditPersonalData/EditPersonalData';
 import ChangePassword from './modal/ChangePassword/ChangePassword';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks';
+import { fetchByUserData } from '../../store/slice/userSlice';
 
 
 
 const PersonalArea: FC = () => {
     const [isvisible, setIsvisible] = useState(false)
     const [password, setPassword] = useState(false)
+    const dispatch = useAppDispatch()
+    const { error, loading } = useAppSelector(state => state.user)
+    const { id, user } = useAppSelector(state => state.user)
+    // console.log(user);
 
+    useEffect(() => {
+        if (id) {
+            dispatch(fetchByUserData(id))
+        }
+    }, [dispatch, id])
+
+    if (loading) {
+        return <h2>LOADING...</h2>
+    }
 
     return (
         <div className={s.container} >
             <section className={s.retreat} >
                 <div className={s.top_area}>
-                    <img src='https://images.squarespace-cdn.com/content/v1/5d3c2d1d944b060001edd719/1628909555912-RHJB2NMPOMIR7Z9BG7Z6/Fiverr_Logo.png' alt="user_avatar" />
+                    <img src="https://pic.rutubelist.ru/user/ef/0e/ef0e915546d95329bdad9ae3afecc315.jpg" alt="user_avatar" />
                     <div>
-                        <h2>имя пользователя</h2>
-                        <h4>user</h4>
-                        <h4>user</h4>
+                        <h2>{user?.username}</h2>
+                        <h4>{user?.email}</h4>
+                        <h4>{user?.id}</h4>
                         <div className={s.control_buttons} >
                             <button onClick={() => setIsvisible(true)}>Редактировать личные данные</button>
                             <button onClick={() => setPassword(true)}>Сменить пароль</button>
@@ -63,8 +78,8 @@ const PersonalArea: FC = () => {
                 </div>
                 <div className={s.info}></div>
             </section>
-            {isvisible && <EditPersonalData setIsvisible={setIsvisible} />}
-            {password && <ChangePassword setPassword={setPassword} />}
+            {isvisible && <EditPersonalData isvisible={isvisible} setIsvisible={setIsvisible} />}
+            {password && <ChangePassword password={password} setPassword={setPassword} />}
 
         </div>
     );
