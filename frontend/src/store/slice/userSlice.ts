@@ -1,6 +1,6 @@
 
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { UserData, UserReq, UserToken, Login, Logout, UserInfo } from '../moduls'
+import { UserData, UserReq, UserToken, Logout, UserInfo } from '../moduls'
 import { authApi } from '../../axios'
 import { removeLSToken, setLSToken } from '../../LS'
 

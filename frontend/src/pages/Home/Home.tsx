@@ -6,12 +6,8 @@ const Home: FC = () => {
     return (
         <div>
             <Advertising />
+        </div>
+    );
+};
 
-import React, { FC } from 'react'
-
-const Home: FC = () => {
-	return <div>bl abaalbla</div>
-}
-
-
-export default Home
+export default Home;
