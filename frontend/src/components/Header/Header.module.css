@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Josefin+Sans:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@200;400;500;600;700&family=Prompt:wght@400;500;600;700&family=Roboto+Condensed:wght@300;400;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #fff;
+}
+
+.logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20%;
+    gap: 20px;
+}
+
+h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
+    color: #E00038;
+    font-size: 40px;
+}
+
+select {
+    height: 50px;
+    border: 1px solid #E00038;
+    padding: 12px 13px 15px 20px;
+}
+
+.container {
+    max-width: 1440px;
+    margin: auto;
+}
+
+@media(max-width:1440px) {
+    .container {
+        width: 100%;
+    }
+}
+
+.navbar {
+    max-width: 91.667%;
+    margin: 0 auto;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0 30px 0;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+}
+
+a {
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #000;
+    height: 50px;
+    /* text-align: c    enter; */
+}
+
+
+.btn_login {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 20%;
+}
+
+.login {
+    width: 80px;
+    height: 50px;
+    background-color: #E00038;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+}
+
+.register {
+    height: 50px;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #E00038;
+    border: none;
+    background-color: #fff;
+}
