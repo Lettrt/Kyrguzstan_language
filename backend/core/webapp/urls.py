@@ -7,6 +7,6 @@ router = DefaultRouter()
 router.register(r'themes', ThemeAPIView)
 router.register(r'words', WordsAPIView)
 
-urlpattern = [
+urlpatterns = [
     path('', include(router.urls)),
 ]
