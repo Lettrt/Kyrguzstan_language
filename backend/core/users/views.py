@@ -4,7 +4,7 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import permissions, status, mixins, viewsets
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, OutstandingToken
+from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from . import serializers
@@ -233,8 +233,8 @@ def authentication(request):
 @permission_classes([permissions.IsAuthenticated])
 def logout_user(request):
     try:
-        token = OutstandingToken.objects.filter(user_id=request.data.get('refresh'))
-        BlacklistedToken.objects.get_or_create(token=token)
+        token = RefreshToken(request.data.get('refresh'))
+        token.blacklist()
         return Response({'detail': 'Successfully logged out'}, status=205)
-    except OutstandingToken.DoesNotExist:
+    except TokenError as e:
         return Response({'detail': 'Token not valid'}, status=400)
