@@ -11,9 +11,8 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-/backend/venv
-/.idea/
-/backend/core/.idea
+.idea/
+backend/.idea/
 
 
 
@@ -61,7 +60,6 @@ target/
 __pycache__/
 local_settings.py
 .env
+media/*
 db.sqlite3
 
-/backend/core/.idea/
-.idea/
