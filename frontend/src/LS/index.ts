@@ -9,3 +9,25 @@ export const getLSToken = () => {
 export const removeLSToken = () => {
 	localStorage.removeItem('token')
 }
+export const setLSRefresh = (token2: string) => {
+	localStorage.setItem('token', token2)
+}
+
+export const getLSRefresh = () => {
+	return localStorage.getItem('token')
+}
+
+export const removeLSRefresh = () => {
+	localStorage.removeItem('token')
+}
+// export const setLSId = (id: number) => {
+// 	localStorage.setItem('id', id)
+// }
+
+// export const getLSId = () => {
+// 	return localStorage.getItem('id')
+// }
+
+// export const removeLSId = () => {
+// 	localStorage.removeItem('id')
+// }
