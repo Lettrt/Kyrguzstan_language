@@ -3,6 +3,7 @@ import s from './EditPersonalData.module.css'
 import { Login, Logout } from '../../../../store/moduls';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks/hooks';
 import { fetchByChangeLogin } from '../../../../store/slice/userSlice';
+import { log } from 'console';
 
 
 interface FormProps {
@@ -25,7 +26,10 @@ const EditPersonalData: FC<FormProps> = ({ setIsvisible, isvisible }) => {
     const logout: Logout = {
         id,
         login,
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA3MDI2MzE0LCJpYXQiOjE3MDYxNjIzMTQsImp0aSI6ImM5OGFhYzc3ZTkxNjQxN2Y4YWIwNDllNjYzYjA5ODVkIiwidXNlcl9pZCI6NH0.tWzak2JOiASQUobUlEVKTvU3_qfO6uc97QBkiyzEcMY',
     }
+
+    console.log(logout);
 
     const handleChangeLogin: FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault()
@@ -38,6 +42,11 @@ const EditPersonalData: FC<FormProps> = ({ setIsvisible, isvisible }) => {
     const hideModal = () => {
         setIsvisible(false)
     }
+
+    // const handleChange = (e) => {
+    //     console.log();
+
+    // }
     useEffect(() => {
         // При рождении убрать скрол
         document.body.style.overflow = 'hidden'
@@ -67,6 +76,7 @@ const EditPersonalData: FC<FormProps> = ({ setIsvisible, isvisible }) => {
                 <form className={s.change_login} onSubmit={handleChangeLogin}>
                     <input value={login.username} onChange={(e) => getLogin('username', e.target.value)} type="text" />
                     <input value={login.email} onChange={(e) => getLogin('email', e.target.value)} type="email" />
+                    <input type="file" accept='image/*,.png,.jpg,.gif,.wep' />
                     <button>Change</button>
                 </form>
             </div>
