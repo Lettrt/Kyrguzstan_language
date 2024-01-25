@@ -12,7 +12,7 @@ const App: FC = () => {
 	return (
 		<div>
 			{
-				token ? <Header /> : <PreviewsHeader />
+				token ? <PreviewsHeader /> : <Header />
 			}
 			<Main />
 			<Footer />
