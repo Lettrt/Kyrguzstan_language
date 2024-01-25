@@ -20,5 +20,11 @@ export const authApi = {
     },
     putChangeLogin(logout: Logout) {
         return instanse.put(`user/users/${logout.id}/`, logout.login)
-    }
+    },
+    getAllFilms() {
+        return instanse.get('webapp/themes/')
+    },
+    getById(id: string) {
+        return instanse.get(`webapp/themes/${id}`)
+    },
 }

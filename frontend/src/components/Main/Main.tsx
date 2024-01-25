@@ -12,6 +12,8 @@ import AllCard from '../../pages/AllCard/AllCard'
 import Category from '../../pages/Category/Category'
 import AllCategory from '../../pages/AllCategory/AllCategory'
 import s from './Main.module.css'
+import Login from '../../pages/authScens/Login/Login';
+import Registration from '../../pages/authScens/Registration/Registration';
 
 const Main: FC = () => {
     const { token } = useAppSelector(state => state.user)
@@ -30,10 +32,13 @@ const Main: FC = () => {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/personal-area' element={<PersonalArea />} />
-                <Route path='/detailcard/:id' element={<DetailCard />} />
+                <Route path='/detail-card/:name' element={<DetailCard />} />
                 <Route path='/allcard/:name/:id' element={<AllCard />} />
                 <Route path='/category' element={<Category />} />
                 <Route path='/allcategory' element={<AllCategory />} />
+                <Route path='/fdsa' element={<Login />} />
+                <Route path='/asdf' element={<Registration />} />
+
                 <Route path='/*' element={<NotFount />} />
             </Routes>
         </main>
@@ -41,10 +46,12 @@ const Main: FC = () => {
         <main>
             <Routes>
                 <Route path='/' element={<PreviewsHome />} />
-                <Route path='/detailcard/:id' element={<DetailCard />} />
+                <Route path='/detail-card/:name' element={<DetailCard />} />
                 <Route path='/allcard/:name/:id' element={<AllCard />} />
                 <Route path='/category' element={<Category />} />
                 <Route path='/allcategory' element={<AllCategory />} />
+                <Route path='/fdsa' element={<Login />} />
+                <Route path='/asdf' element={<Registration />} />
                 <Route path='/*' element={<NotFount />} />
             </Routes>
         </main>

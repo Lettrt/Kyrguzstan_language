@@ -12,7 +12,7 @@ const Footer: FC = () => {
             <div className={s.container}>
                 <div className={s.lower_area}>
                     <div className={s.footer_box}>
-                        <h2>KyrgyzLanguage</h2>
+                        <h2 className={s.footerTitle}>KyrgyzLanguage</h2>
 
 
                         <ul className={s.footer_menu}>
