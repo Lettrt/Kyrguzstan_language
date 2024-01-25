@@ -9,9 +9,6 @@ const instanse = axios.create({
 })
 
 export const authApi = {
-
-
-
     addNewUser(userData: UserData) {
         return instanse.post('user/registration/', userData)
     },
@@ -26,11 +23,8 @@ export const authApi = {
         return instanse.get(`user/users/${id}/`)
     },
     putChangeLogin(logout: Logout) {
-
-      
-      
-      
-        return instanse.put(`user/users/${logout.id}/`, logout.login)
+        const headers = { "Authorization": `Bearer ${logout.token}` }
+        return instanse.put(`user/users/${logout.id}/`, logout.login, { headers })
     },
     getAllFilms() {
         return instanse.get('webapp/themes/')
@@ -38,16 +32,4 @@ export const authApi = {
     getById(id: string) {
         return instanse.get(`webapp/themes/${id}`)
     },
-
-  
-  
-  
-        const headers = { "Authorization": `Bearer ${logout.token}` }
-        return instanse.put(`user/users/${logout.id}/`, logout.login, { headers })
-    }
-
-    
-    
-    
-    
 }

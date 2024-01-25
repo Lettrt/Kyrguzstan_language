@@ -20,14 +20,15 @@ export const getLSRefresh = () => {
 export const removeLSRefresh = () => {
 	localStorage.removeItem('token')
 }
-// export const setLSId = (id: number) => {
-// 	localStorage.setItem('id', id)
-// }
 
-// export const getLSId = () => {
-// 	return localStorage.getItem('id')
-// }
+export const setLSId = (id: string) => {
+	localStorage.setItem('id', id)
+}
 
-// export const removeLSId = () => {
-// 	localStorage.removeItem('id')
-// }
+export const getLSId = () => {
+	return localStorage.getItem('id')
+}
+
+export const removeLSId = () => {
+	localStorage.removeItem('id')
+}

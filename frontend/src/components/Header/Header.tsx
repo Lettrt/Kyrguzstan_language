@@ -1,45 +1,23 @@
-
-
-
+import React, { ChangeEvent, Component, FC, useState } from 'react';
 import s from './Header.module.css'
 import { Link } from 'react-router-dom';
-import React, { ChangeEvent, Component, FC, useState } from 'react';
-import rubFlag from '../../../src/assets/Bayel/IconsEnglish.png';
-import usdFlag from '../../../src/assets/Bayel/Iconskyrgyzicon.png';
+import engFlag from '../../../src/assets/Bayel/IconsEnglish.png';
+import kgFlag from '../../../src/assets/Bayel/Iconskyrgyzicon.png';
 import searchIcon from '../../../src/assets/Bayel/IconssearchIcon.png'
 import { useAppDispatch } from '../../store/hooks/hooks';
-import { removeToken } from '../../store/slice/userSlice';
+import Login from '../../pages/authScens/Login/Login';
+import Registration from '../../pages/authScens/Registration/Registration';
+// import { removeToken } from '../../store/slice/userSlice';
 
 
 const Header: FC = () => {
     const dispatch = useAppDispatch()
+    const [enter, setEnter] = useState(false)
+    const [register, setRegister] = useState(false)
     const [img, setImg] = useState('')
-    const logOut = () => {
-        dispatch(removeToken())
-    }
-
-    
-    
-import React, { FC, useState } from 'react'
-import s from './Header.module.css'
-import { Link } from 'react-router-dom'
-import iconEng from '../../../src/assets/Bayel/IconsEnglish.png'
-import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
-// import { removeToken } from '../../store/slice/userSlice'
-
-const Header: FC = () => {
-    const dispatch = useAppDispatch()
-    const { token2 } = useAppSelector(state => state.user)
-
-    // const Out = () => {
-    // 	dispatch(removeToken())
+    // const logOut = () => {
+    //     dispatch(removeToken())
     // }
-
-    console.log(token2)
-
-  
-  
-  
 
     return (
         <header>
@@ -47,14 +25,10 @@ const Header: FC = () => {
                 <div className={s.navbar}>
                     <nav>
                         <div className={s.logo}>
-
-                          
-                          
-                          
-                            <h1 className={s.title}>Language</h1>
+                            <Link to={'/'}><h1 className={s.title}>Language</h1></Link>
                             <label className={s.select_label}>
                                 {
-                                    <img src={img === 'ENG' ? rubFlag : usdFlag} alt="V" />
+                                    <img src={img === 'KG' ? kgFlag : engFlag} alt="V" />
 
                                 }
                                 <select className={s.select} onChange={(e) => setImg(e.target.value)}>
@@ -67,32 +41,6 @@ const Header: FC = () => {
                         <ul className={s.menu}>
                             <li className={s.menu_item}><a href="#">Категории</a></li>
                             <li className={s.menu_item}><a href="#">Избранное</a></li>
-
-                          
-                            <h1>KyrgyzLanguage</h1>
-                            <select>
-                                <option value=''>Английский</option>
-                                <option value=''>Кыргызский</option>
-                            </select>
-                        </div>
-                        <ul className={s.menu}>
-                            <li className={s.menu_item}>
-                                <a href='#'>About</a>
-                            </li>
-                            <li className={s.menu_item}>
-                                <a href='#'>Home</a>
-                            </li>
-                            <li className={s.menu_item}>
-                                <a href='#'>Contact</a>
-                            </li>
-                            <li className={s.menu_item}>
-                                <a href='#'>Services</a>
-                            </li>
-                            <li className={s.menu_item}>
-                                <a href='#'>Team</a>
-                            </li>
-
-                          
                         </ul>
                         <div className={s.search}>
                             <input className={s.searchInp} type="text" placeholder='Поиск' />
@@ -101,52 +49,17 @@ const Header: FC = () => {
                             </label>
                         </div>
 
-<
-                      
-                      
-                      
                         <div className={s.btn_login}>
-                            <Link to={'/preview-home'}><button className={s.login}>Войти</button></Link>
-                            <Link to={'/sign-up'}><button className={s.register}>Зарегистрироваться</button></Link>
-
-                        
-                        
-                        
-                        <div>
-                            {/* <Button onClick={Out} variant='contained'>
-								Out
-							</Button>
-							<Button
-								onClick={() => dispatch(fetchByLogOut(token2))}
-								variant='contained'
-							>
-								Log Out
-							</Button> */}
-
-                          
-                          
-                          
+                            <button onClick={() => setEnter(!enter)} className={s.login}>Войти</button>
+                            <button onClick={() => setRegister(!register)} className={s.register}>Зарегистрироваться</button>
                         </div>
                     </nav>
                 </div>
             </div>
+            {enter && <Login enter={enter} setEnter={setEnter} />}
+            {register && <Registration />}
         </header>
-
-                      
-                      
-                      
     );
 };
 
-export default Header;
-
-  
-  
-  
-    )
-}
-
 export default Header
-
-  
-  

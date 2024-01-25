@@ -8,7 +8,7 @@ import {
     Refresh,
 } from '../moduls'
 import { authApi } from '../../axios'
-import { removeLSToken, setLSRefresh, setLSToken } from '../../LS'
+import { removeLSToken, setLSId, setLSRefresh, setLSToken } from '../../LS'
 import { StringLiteral } from 'typescript'
 
 type UserState = {
@@ -50,10 +50,10 @@ export const fetchByLogin = createAsyncThunk<
     { rejectValue: string }
 >('user/fetchByLogin', async (UserData, { rejectWithValue }) => {
     const res = await authApi.login(UserData)
-    console.log(res)
-    // if (res.status !== 201) {
-    // 	return rejectWithValue('Server error')
-    // }
+    console.log(res);
+    if (res.status !== 201) {
+        return rejectWithValue('Server error')
+    }
     return res.data as UserToken
 })
 
@@ -117,6 +117,9 @@ const userSlice = createSlice({
         setRefresh(state, action: PayloadAction<string | null>) {
             state.token2 = action.payload
         },
+        setId(state, action: PayloadAction<string | null>) {
+            state.id = Number(action.payload)
+        },
         removeToken(state) {
             state.token = null
             removeLSToken()
@@ -146,10 +149,10 @@ const userSlice = createSlice({
             state.loading = false
             state.token = action.payload.access
             state.token2 = action.payload.refresh
-            // state.id = action.payload.user?.id
             setLSToken(action.payload.access)
             setLSRefresh(action.payload.refresh)
-            // setLSId(action.payload.user?.id)
+            state.id = action.payload.user?.id
+            setLSId(String(action.payload.user?.id))
         })
         addCase(fetchByLogin.rejected, (state, action) => {
             state.loading = false
@@ -157,6 +160,7 @@ const userSlice = createSlice({
                 state.error = 'Пользователь не найден!'
             }
         })
+
         // addCase(fetchByLogOut.pending, state => {
         // 	state.loading = true
         // 	state.error = null
@@ -207,6 +211,6 @@ const userSlice = createSlice({
     },
 })
 
-export const { toggleRedirect, setToken, setRefresh } = userSlice.actions
+export const { toggleRedirect, setToken, setRefresh, setId } = userSlice.actions
 
 export default userSlice.reducer

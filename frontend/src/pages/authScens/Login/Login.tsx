@@ -17,12 +17,13 @@ import {
 } from '@mui/material'
 import { CheckBox, Label, Visibility, VisibilityOff } from '@mui/icons-material'
 
-interface LoginProps {
-	isOpen: boolean
-	onClose: () => void
+
+interface FormProps {
+	setEnter: (e: boolean) => void
+	enter: boolean
 }
 
-const Login: FC<LoginProps> = ({ isOpen, onClose }) => {
+const Login: FC<FormProps> = ({ setEnter, enter }) => {
 	const { error } = useAppSelector(state => state.user)
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
@@ -30,7 +31,7 @@ const Login: FC<LoginProps> = ({ isOpen, onClose }) => {
 		username: '',
 		password: '',
 	})
-	console.log(userData)
+	// console.log(userData)
 
 	const getUserData = (key: string, value: string) => {
 		setUserData({ ...userData, [key]: value })
@@ -55,83 +56,112 @@ const Login: FC<LoginProps> = ({ isOpen, onClose }) => {
 		event.preventDefault()
 	}
 
-	return (
-		<>
-			<form onSubmit={handleForm} className={s.form}>
-				<h1>Добро пожаловать</h1>
-				<h3>Добро пожаловать</h3>
-				{error ? (
-					<TextField error id='outlined-error' label='Error' />
-				) : (
-					<TextField
-						className={s.input_username}
-						onChange={e => getUserData('username', e.target.value)}
-						id='outlined-username-input'
-						label='Create username'
-						type='text'
-						autoComplete='current-username'
-					/>
-				)}
-				{error ? (
-					<TextField error id='outlined-error' label='Error' />
-				) : (
-					<FormControl sx={{ width: '51ch' }} variant='outlined'>
-						<InputLabel htmlFor='outlined-adornment-password'>
-							Password
-						</InputLabel>
-						<OutlinedInput
-							onChange={e => getUserData('password', e.target.value)}
-							id='outlined-adornment-password'
-							type={showPassword ? 'text' : 'password'}
-							endAdornment={
-								<InputAdornment position='end'>
-									<IconButton
-										aria-label='toggle password visibility'
-										onClick={handleClickShowPassword}
-										onMouseDown={handleMouseDownPassword}
-										edge='end'
-									>
-										{showPassword ? <VisibilityOff /> : <Visibility />}
-									</IconButton>
-								</InputAdornment>
-							}
-							label='Password'
-						/>
-					</FormControl>
-				)}
+	const hideModal = () => {
+		setEnter(false)
+	}
 
-				<div className={s.form_checkbox}>
-					<div className={s.remember_me}>
-						<input type='checkbox' /> Запомнить меня
+	useEffect(() => {
+		// При рождении убрать скрол
+		document.body.style.overflow = 'hidden'
+		// При нажатии на ESC закрыть модальное окно
+		document.addEventListener('keydown', (e) => {
+			e.code === 'Escape' && hideModal()
+		})
+		// При рождении навесит другое событие на кнопку назад у браузера
+		if (enter) {
+			window.history.pushState(null, '', window.location.href)
+			window.onpopstate = () => setEnter(false);
+		}
+		return () => {
+			// При закрытии  модального окна вернуть скролл
+			document.body.style.overflow = 'auto'
+			// При закрытии убрать действия с кнопки ESC
+			document.removeEventListener('keydown', () => { })
+			// При закрытии вернуть действие по умолчанию на кнопку назад в браузере
+			if (!enter) window.history.back();
+			window.onpopstate = () => { };
+		}
+	}, [])
+
+	return (
+		<div onClick={hideModal} className={s.modal_login}>
+			<div onClick={(e) => e.stopPropagation()} >
+				<form onSubmit={handleForm} className={s.form}>
+					<h1>Добро пожаловать</h1>
+					<h3>Добро пожаловать</h3>
+					{error ? (
+						<TextField error id='outlined-error' label='Error' />
+					) : (
+						<TextField
+							className={s.input_username}
+							onChange={e => getUserData('username', e.target.value)}
+							id='outlined-username-input'
+							label='Create username'
+							type='text'
+							autoComplete='current-username'
+						/>
+					)}
+					{error ? (
+						<TextField error id='outlined-error' label='Error' />
+					) : (
+						<FormControl sx={{ width: '51ch' }} variant='outlined'>
+							<InputLabel htmlFor='outlined-adornment-password'>
+								Password
+							</InputLabel>
+							<OutlinedInput
+								onChange={e => getUserData('password', e.target.value)}
+								id='outlined-adornment-password'
+								type={showPassword ? 'text' : 'password'}
+								endAdornment={
+									<InputAdornment position='end'>
+										<IconButton
+											aria-label='toggle password visibility'
+											onClick={handleClickShowPassword}
+											onMouseDown={handleMouseDownPassword}
+											edge='end'
+										>
+											{showPassword ? <VisibilityOff /> : <Visibility />}
+										</IconButton>
+									</InputAdornment>
+								}
+								label='Password'
+							/>
+						</FormControl>
+					)}
+
+					<div className={s.form_checkbox}>
+						<div className={s.remember_me}>
+							<input type='checkbox' /> Запомнить меня
+						</div>
+						<div className={s.restore_password}>Восстановить пароль</div>
 					</div>
-					<div className={s.restore_password}>Восстановить пароль</div>
-				</div>
-				<button className={s.enter_btn}>Войти</button>
-				<div className={s.another_way_enter}>
-					<h3>или Войти с помощью</h3>
-				</div>
-				<div className={s.social_network}>
-					<div className={s.social_block}>
-						<img src={facebook} alt='Facebook' />
+					<button className={s.enter_btn}>Войти</button>
+					<div className={s.another_way_enter}>
+						<h3>или Войти с помощью</h3>
 					</div>
-					<div className={s.social_block}>
-						<img src={google} alt='Google' />
+					<div className={s.social_network}>
+						<div className={s.social_block}>
+							<img src={facebook} alt='Facebook' />
+						</div>
+						<div className={s.social_block}>
+							<img src={google} alt='Google' />
+						</div>
+						<div className={s.social_block}>
+							<img src={apple} alt='Apple' />
+						</div>
+						{/* ... Другие социальные сети */}
 					</div>
-					<div className={s.social_block}>
-						<img src={apple} alt='Apple' />
+					<div className={s.registr_again}>
+						<p>
+							Еще не зарегистрированы?
+							<Link className={s.registr_text} to={'/sign-up'}>
+								Регистрация
+							</Link>
+						</p>
 					</div>
-					{/* ... Другие социальные сети */}
-				</div>
-				<div className={s.registr_again}>
-					<p>
-						Еще не зарегистрированы?
-						<Link className={s.registr_text} to={'/sign-up'}>
-							Регистрация
-						</Link>
-					</p>
-				</div>
-			</form>
-		</>
+				</form>
+			</div>
+		</div>
 	)
 }
 
