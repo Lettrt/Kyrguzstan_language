@@ -13,12 +13,13 @@ export const authApi = {
         return instanse.post('user/registration/', userData)
     },
     login(userData: UserData) {
-        return instanse.post('token/', userData)
+        return instanse.post('user/authentication/', userData)
     },
     getUserData(id: number) {
         return instanse.get(`user/users/${id}/`)
     },
     putChangeLogin(logout: Logout) {
-        return instanse.put(`user/users/${logout.id}/`, logout.login)
+        const headers = { "Authorization": `Bearer ${logout.token}` }
+        return instanse.put(`user/users/${logout.id}/`, logout.login, { headers })
     }
 }

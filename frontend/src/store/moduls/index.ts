@@ -7,7 +7,7 @@ export type UserData = {
 
 export type UserToken = {
     access: string
-    // refresh: string
+    refresh: string
 }
 
 export type UserReq = UserToken & {
@@ -33,5 +33,6 @@ export type Login = {
 export type Logout = {
     login: Login
     id: number | undefined | null
+    token: string | null
 }
 

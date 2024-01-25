@@ -4,7 +4,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    backdrop-filter: blur(15px);
+    background-color: #E00038;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,7 +22,7 @@
     padding: 20px;
     cursor: auto;
     display: flex;
-    background-color: aliceblue;
+    background-color: #b64b4b;
 }
 
 .change_login {

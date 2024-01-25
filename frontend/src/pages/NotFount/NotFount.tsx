@@ -4,11 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 const NotFount: FC = () => {
     const navigate = useNavigate()
 
-    useEffect(() => {
-        setTimeout(() => {
-            navigate('/', { replace: true })
-        }, 4000)
-    }, [navigate])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         navigate('/', { replace: true })
+    //     }, 4000)
+    // }, [navigate])
     return (
         <div className=''>
             <h1>404 Error</h1>
