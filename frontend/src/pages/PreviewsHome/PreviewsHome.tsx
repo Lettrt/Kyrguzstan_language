@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
+import Home from '../Home/Home'
 
 const PreviewsHome: FC = () => {
 	return <div>
-		<h2>PreviewsHome</h2>
 	</div>
 }
 

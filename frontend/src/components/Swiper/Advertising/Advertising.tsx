@@ -9,28 +9,30 @@ import './Advertising.css'
 
 const Advertising: FC = () => {
     return (
-        <div>
-            <Swiper
-                spaceBetween={30}
-                centeredSlides={true}
-                autoplay={{
-                    delay: 3500,
-                    disableOnInteraction: false,
-                }}
-                pagination={{
-                    clickable: true,
-                }}
-                navigation={true}
-                modules={[Autoplay, Pagination, Navigation]}
-                className="mySwiper"
-            >
-                <SwiperSlide><img src={norma} alt="реклама" /></SwiperSlide>
-                <SwiperSlide><img src={norma} alt="реклама" /></SwiperSlide>
-                <SwiperSlide><img src={norma} alt="реклама" /></SwiperSlide>
-                <SwiperSlide><img src={norma} alt="реклама" /></SwiperSlide>
-            </Swiper>
+        <div className='container'>
+            <div className='AdwertisingSwiper'>
+                <Swiper
+                    spaceBetween={30}
+                    centeredSlides={true}
+                    autoplay={{
+                        delay: 3500,
+                        disableOnInteraction: false,
+                    }}
+                    pagination={{
+                        clickable: true,
+                    }}
+                    navigation={true}
+                    modules={[Autoplay, Pagination, Navigation]}
+                    className="mySwiper"
+                >
+                    <SwiperSlide><img src={norma} alt="реклама" /></SwiperSlide>
+                    <SwiperSlide><img src={norma} alt="реклама" /></SwiperSlide>
+                    <SwiperSlide><img src={norma} alt="реклама" /></SwiperSlide>
+                    <SwiperSlide><img src={norma} alt="реклама" /></SwiperSlide>
+                </Swiper>
 
-        </div >
+            </div >
+        </div>
     );
 };
 

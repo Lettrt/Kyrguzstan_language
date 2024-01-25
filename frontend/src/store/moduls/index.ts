@@ -61,6 +61,23 @@ export type Logout = {
   
 }
 
+
+
+
+export type IFilms = {
+    nameRu: string | null
+    nameEn: string | null
+    kinopoiskId: number
+    nameOriginal: string
+    posterUrl: string
+}
+
+
+
+
 export type Refresh = {
 	refresh: string
 }
+
+
+

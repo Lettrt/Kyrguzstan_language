@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Josefin+Sans:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@200;400;500;600;700&family=Prompt:wght@400;500;600;700&family=Roboto+Condensed:wght@300;400;700&family=Roboto:wght@300;400;500;700&display=swap');
+@import '../../components/SCSS/vars';
+
+
+.container {
+    max-width: 1440px;
+    margin: auto;
+
+    button {
+        width: 100px;
+        background-color: #E00038;
+        color: #fff;
+        text-align: center;
+        height: 30px;
+        border: 2px solid #fff;
+        border-radius: 5px;
+    }
+}
+
+@media(max-width:1440px) {
+    .container {
+        width: 100%;
+    }
+}
+
+
+.detailBox {
+    max-width: 91.667%;
+    margin: 0 auto;
+
+
+    .detailCard {
+        border: 2px solid#fff;
+        width: 28%;
+        text-align: center;
+        padding: 10px;
+        -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+        -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+        box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+        margin-top: 30px;
+
+        h2 {
+            font-size: 30px;
+            font-family: $fontPoppins;
+            font-weight: 400;
+            color: #000;
+            margin-top: 20px;
+        }
+    }
+
+}

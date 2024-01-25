@@ -25,7 +25,7 @@ footer {
     align-items: center;
 }
 
-h2 {
+.footerTitle {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 400;
     color: #fff;
@@ -49,7 +49,7 @@ h2 {
 .footer_item {
     font-weight: 400;
     font-family: 'Poppins', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     color: #fff;
 }
 
@@ -59,4 +59,6 @@ h2 {
     width: 160px;
     display: flex;
     justify-content: space-between;
+    object-fit: cover;
+    cursor: pointer;
 }

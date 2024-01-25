@@ -26,7 +26,28 @@ export const authApi = {
         return instanse.get(`user/users/${id}/`)
     },
     putChangeLogin(logout: Logout) {
+
+      
+      
+      
+        return instanse.put(`user/users/${logout.id}/`, logout.login)
+    },
+    getAllFilms() {
+        return instanse.get('webapp/themes/')
+    },
+    getById(id: string) {
+        return instanse.get(`webapp/themes/${id}`)
+    },
+
+  
+  
+  
         const headers = { "Authorization": `Bearer ${logout.token}` }
         return instanse.put(`user/users/${logout.id}/`, logout.login, { headers })
     }
+
+    
+    
+    
+    
 }
