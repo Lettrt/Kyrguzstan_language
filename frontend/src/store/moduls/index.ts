@@ -1,8 +1,26 @@
 export type UserData = {
+
+  
+  
 	username: string
 	password: string
 	password2?: string
 	email?: string
+
+  
+  
+    username: string
+    password: string
+    password2?: string
+    email?: string
+}
+
+export type UserToken = {
+    access: string
+    refresh: string
+
+  
+  
 }
 
 export type UserReq = UserToken & {
@@ -30,8 +48,17 @@ export type Login = {
 }
 
 export type Logout = {
+
+  
 	login: Login
 	id: number | undefined | null
+
+  
+    login: Login
+    id: number | undefined | null
+    token: string | null
+
+  
 }
 
 export type Refresh = {

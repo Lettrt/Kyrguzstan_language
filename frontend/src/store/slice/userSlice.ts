@@ -22,6 +22,9 @@ type UserState = {
 }
 
 const initialState: UserState = {
+
+  
+  
 	error: null,
 	loading: false,
 	token: null,
@@ -29,6 +32,18 @@ const initialState: UserState = {
 	id: null,
 	redirect: false,
 	user: null,
+
+  
+  
+    error: null,
+    loading: false,
+    token: null,
+    id: 4,
+    redirect: false,
+    user: null,
+
+  
+  
 }
 
 export const fetchByAddNewUser = createAsyncThunk<
@@ -70,6 +85,9 @@ export const fetchByUserData = createAsyncThunk<
 	return res.data as UserInfo
 })
 
+
+
+
 export const fetchByChangeLogin = createAsyncThunk<
 	UserInfo,
 	Logout,
@@ -82,6 +100,23 @@ export const fetchByChangeLogin = createAsyncThunk<
 	}
 	return res.data as UserInfo
 })
+
+
+
+export const fetchByChangeLogin = createAsyncThunk<UserInfo, Logout, { rejectValue: string }>(
+    'user/fetchByChangeLogin',
+    async (logout, { rejectWithValue }) => {
+        const res = await authApi.putChangeLogin(logout)
+        console.log(res);
+        // if (res.status !== 200) {
+        //     return rejectWithValue('Server error')
+        // }
+        return res.data as UserInfo
+    }
+)
+
+
+
 
 // export const fetchByLogOut = createAsyncThunk<
 // 	string,

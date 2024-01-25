@@ -9,6 +9,9 @@ const instanse = axios.create({
 })
 
 export const authApi = {
+
+  
+  
 	addNewUser(userData: UserData) {
 		return instanse.post('user/registration/', userData)
 	},
@@ -25,4 +28,24 @@ export const authApi = {
 	putChangeLogin(logout: Logout) {
 		return instanse.put(`user/users/${logout.id}/`, logout.login)
 	},
+
+    
+    
+    
+    
+    addNewUser(userData: UserData) {
+        return instanse.post('user/registration/', userData)
+    },
+    login(userData: UserData) {
+        return instanse.post('user/authentication/', userData)
+    },
+    getUserData(id: number) {
+        return instanse.get(`user/users/${id}/`)
+    },
+    putChangeLogin(logout: Logout) {
+        const headers = { "Authorization": `Bearer ${logout.token}` }
+        return instanse.put(`user/users/${logout.id}/`, logout.login, { headers })
+    }
+
+  
 }

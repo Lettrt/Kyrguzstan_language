@@ -10,8 +10,19 @@ import AllCard from '../../pages/AllCard/AllCard'
 import Category from '../../pages/Category/Category'
 import AllCategory from '../../pages/AllCategory/AllCategory'
 import s from './Main.module.css'
+
+
+
 import { getLSRefresh, getLSToken } from '../../LS'
 import { setRefresh, setToken } from '../../store/slice/userSlice'
+
+
+
+import Login from '../../pages/authScens/Login/Login';
+import Registration from '../../pages/authScens/Registration/Registration';
+
+
+
 
 const Main: FC = () => {
 	const { token, token2 } = useAppSelector(state => state.user)
@@ -25,8 +36,45 @@ const Main: FC = () => {
 		}
 	}, [dispatch])
 
+
+  
+  
 	useEffect(() => {
 		let lsToken2 = getLSRefresh()
+
+    
+    
+    return token ? (
+        <main>
+            <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path='/personal-area' element={<PersonalArea />} />
+                <Route path='/personal' element={<Login />} />
+                <Route path='/detailcard/:id' element={<DetailCard />} />
+                <Route path='/allcard/:name/:id' element={<AllCard />} />
+                <Route path='/category' element={<Category />} />
+                <Route path='/allcategory' element={<AllCategory />} />
+                <Route path='/*' element={<NotFount />} />
+            </Routes>
+        </main>
+    ) : (
+        <main>
+            <Routes>
+                <Route path='/' element={<PreviewsHome />} />
+                <Route path='/detailcard/:id' element={<DetailCard />} />
+                <Route path='/allcard/:name/:id' element={<AllCard />} />
+                <Route path='/category' element={<Category />} />
+                <Route path='/personal-area' element={<PersonalArea />} />
+                <Route path='/allcategory' element={<AllCategory />} />
+                <Route path='/*' element={<NotFount />} />
+            </Routes>
+        </main>
+
+    )
+};
+
+            
+            
 
 		if (lsToken2 !== null || lsToken2 !== undefined) {
 			dispatch(setRefresh(lsToken2))
