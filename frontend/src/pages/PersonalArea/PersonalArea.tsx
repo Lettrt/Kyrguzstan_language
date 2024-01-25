@@ -16,7 +16,7 @@ const PersonalArea: FC = () => {
     const [password, setPassword] = useState(false)
     const dispatch = useAppDispatch()
     const { id, loading, user } = useAppSelector(state => state.user)
-    console.log(user);
+    // console.log(user);
 
     useEffect(() => {
         if (id) {

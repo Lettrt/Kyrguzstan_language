@@ -22,7 +22,7 @@ export const fetchByListFilms = createAsyncThunk<IFilms[], void, { rejectValue: 
     async (_, { rejectWithValue }) => {
         try {
             const res = await authApi.getAllFilms()
-            console.log(res);
+            // console.log(res);
             if (res.status !== 200) {
                 throw new Error('server error')
             }

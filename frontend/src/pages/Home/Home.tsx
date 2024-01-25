@@ -10,6 +10,7 @@ import filmIcon from '../../../src/assets/Bayel/Photofilm.png'
 import businnesIcon from '../../../src/assets/Bayel/Photobusiness.png'
 import eduIcon from '../../../src/assets/Bayel/Photoedu.png'
 import acqIcon from '../../../src/assets/Bayel/Photoacquaintance.png'
+import { Link } from 'react-router-dom';
 
 
 const Home: FC = () => {
@@ -30,7 +31,7 @@ const Home: FC = () => {
                             <div className={s.PopularCardsTitle}>
                                 <h2>Популярные карточки</h2>
                                 <div className={s.moreCards}>
-                                    <button>Больше карточек</button>
+                                    <Link to={'/allcard'}><button>Больше карточек</button></Link>
                                     <img src={arrowRight} alt="rrow" />
                                 </div>
                             </div>
@@ -55,7 +56,7 @@ const Home: FC = () => {
                             <div className={s.PopularCardsTitle}>
                                 <h2>Популярные категории</h2>
                                 <div className={s.moreCards}>
-                                    <button>Больше карточек</button>
+                                    <Link to={'/allcategory'}><button>Больше категорий</button></Link>
                                     <img src={arrowRight} alt="rrow" />
                                 </div>
                             </div>
@@ -88,9 +89,7 @@ const Home: FC = () => {
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </>
     );
 };

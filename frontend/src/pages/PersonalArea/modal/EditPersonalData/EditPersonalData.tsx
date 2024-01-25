@@ -13,7 +13,7 @@ interface FormProps {
 
 const EditPersonalData: FC<FormProps> = ({ setIsvisible, isvisible }) => {
     const dispatch = useAppDispatch()
-    const { id } = useAppSelector(state => state.user)
+    const { id, token } = useAppSelector(state => state.user)
     const [login, setLogin] = useState<Login>({
         email: '',
         username: '',
@@ -26,10 +26,10 @@ const EditPersonalData: FC<FormProps> = ({ setIsvisible, isvisible }) => {
     const logout: Logout = {
         id,
         login,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA3MDI2MzE0LCJpYXQiOjE3MDYxNjIzMTQsImp0aSI6ImM5OGFhYzc3ZTkxNjQxN2Y4YWIwNDllNjYzYjA5ODVkIiwidXNlcl9pZCI6NH0.tWzak2JOiASQUobUlEVKTvU3_qfO6uc97QBkiyzEcMY',
+        token,
     }
 
-    console.log(logout);
+    // console.log(logout);
 
     const handleChangeLogin: FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault()

@@ -72,7 +72,7 @@ const Registration: FC = () => {
 	}
 
 	return (
-		<div>
+		<div className={s.modal_login}>
 			<form onSubmit={handleSubmit} className={s.form}>
 				<h1>Добро пожаловать</h1>
 				<h3>Добро пожаловать</h3>

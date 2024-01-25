@@ -1,26 +1,8 @@
 export type UserData = {
-
-  
-  
 	username: string
 	password: string
 	password2?: string
 	email?: string
-
-  
-  
-    username: string
-    password: string
-    password2?: string
-    email?: string
-}
-
-export type UserToken = {
-    access: string
-    refresh: string
-
-  
-  
 }
 
 export type UserReq = UserToken & {
@@ -32,7 +14,7 @@ export type UserReq = UserToken & {
 export type UserToken = {
 	access: string
 	refresh: string
-	user: UserReq | null
+	user: UserInfo | null
 }
 
 export type UserInfo = {
@@ -48,32 +30,18 @@ export type Login = {
 }
 
 export type Logout = {
-
-  
 	login: Login
 	id: number | undefined | null
-
-  
-    login: Login
-    id: number | undefined | null
-    token: string | null
-
-  
+	token: string | null
 }
-
-
-
 
 export type IFilms = {
-    nameRu: string | null
-    nameEn: string | null
-    kinopoiskId: number
-    nameOriginal: string
-    posterUrl: string
+	nameRu: string | null
+	nameEn: string | null
+	kinopoiskId: number
+	nameOriginal: string
+	posterUrl: string
 }
-
-
-
 
 export type Refresh = {
 	refresh: string
