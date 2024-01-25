@@ -1,0 +1,32 @@
+/*/ Modal Open /*/
+.modal--exiting,
+.modal--entered {
+	opacity: 1;
+}
+
+.modal--entering .modal_content,
+.modal--entered .modal_content {
+	transform: translateY(0);
+}
+
+/*/ Modal Close /*/
+.modal--exiting,
+.modal--exited {
+	opacity: 0;
+}
+
+.modal--exiting .modal_content,
+.modal--exited .modal_content {
+	transform: translateY(-50px);
+}
+
+.modal_wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	min-height: 100%;
+}
