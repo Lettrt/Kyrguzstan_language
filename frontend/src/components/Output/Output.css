@@ -1,0 +1,21 @@
+.filmWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 91.667%;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+
+.container {
+    max-width: 1440px;
+    margin: auto;
+}
+
+@media(max-width:1440px) {
+    .container {
+        width: 100%;
+    }
+}

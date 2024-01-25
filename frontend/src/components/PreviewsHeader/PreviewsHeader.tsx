@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
+import React from 'react';
 
-const PreviewsHeader: FC = () => {
-    return (
-        <div>
+const PreviewsHeader = () => {
+	return (
+		<div>
 
-        </div>
-    );
+		</div>
+	);
 };
 
 export default PreviewsHeader;
