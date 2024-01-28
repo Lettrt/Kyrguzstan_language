@@ -60,6 +60,6 @@ target/
 __pycache__/
 local_settings.py
 .env
-media/*
+media/
 db.sqlite3
 

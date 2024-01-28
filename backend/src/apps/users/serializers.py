@@ -74,7 +74,6 @@ class UserAuth(serializers.Serializer):
         # Добавляем дополнительные параметры в attrs
         attrs['id'] = user.id
         attrs['email'] = user.email
-        attrs['avatar'] = "media/" + str(user.avatar) if user.avatar else None
 
         return attrs
 
@@ -95,7 +94,7 @@ class UserSerializer(serializers.ModelSerializer):
             UniqueValidator(queryset=User.objects.all())
         ]
     )
-    avatar = serializers.ImageField(required=False)
+    avatar = serializers.ImageField(required=False, allow_null=True)
 
     class Meta:
         model = User

@@ -201,6 +201,10 @@ def authentication(request):
     username = request.data.get('username')
     user = User.objects.get(username=username)
 
+    # Определение протокола на основании запроса
+    protocol = 'https' if request.is_secure() else 'http'
+    serializer.validated_data['avatar'] = f'{protocol}://{request.get_host()}/media/' + str(user.avatar) if user.avatar else None
+
     refresh = RefreshToken.for_user(user)
     user_data = {
         'user': serializer.validated_data,
