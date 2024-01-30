@@ -1,13 +1,23 @@
 from rest_framework import serializers
 
-from .models import ThemeOFWords, Words
+from .models import ThemeOFWords, RUS_ENG_Words, RUS_KGZ_Words, ENG_KGZ_Words
 from ..base.services import delete_of_file
 
 
-class WordsSerializer(serializers.ModelSerializer):
+class RUS_ENG_WordsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Words
-        fields = ('id', 'kg_words', 'ru_words', 'eng_words')
+        model = RUS_ENG_Words
+        fields = '__all__'
+
+class RUS_KGZ_WordsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RUS_KGZ_Words,
+        fields = '__all__'
+
+class ENG_KGZ_WordsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ENG_KGZ_Words
+        fields = '__all__'
 
 
 class ThemeSerializer(serializers.ModelSerializer):
